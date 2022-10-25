@@ -18,6 +18,16 @@
 """This module contains a Google Cloud Translate Speech operator."""
 from __future__ import annotations
 
+import sys
+
+from airflow.exceptions import AirflowOptionalProviderFeatureException
+
+if sys.version_info >= (3, 11):
+    raise AirflowOptionalProviderFeatureException(
+        "The translate_speech module is not available for Python 3.11+"
+    )
+
+
 from typing import TYPE_CHECKING, Sequence
 
 from google.cloud.speech_v1.types import RecognitionAudio, RecognitionConfig

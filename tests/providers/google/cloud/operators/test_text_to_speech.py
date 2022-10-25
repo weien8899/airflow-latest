@@ -17,9 +17,14 @@
 # under the License.
 from __future__ import annotations
 
-from unittest.mock import ANY, MagicMock, Mock, PropertyMock, patch
+import sys
 
 import pytest
+
+pytestmark = pytest.mark.skipif(sys.version_info >= (3, 11), reason="Skipped on python3.11 or higher")
+
+from unittest.mock import ANY, MagicMock, Mock, PropertyMock, patch
+
 from google.api_core.gapic_v1.method import DEFAULT
 
 from airflow.exceptions import AirflowException

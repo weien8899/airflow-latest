@@ -78,10 +78,10 @@ dependencies:
   - gcloud-aio-storage
   - google-ads>=15.1.1
   - google-api-core>=2.7.0,<3.0.0
-  - google-api-python-client>=1.6.0,<2.0.0
+  - google-api-python-client>=1.6.0,<2.0.0;python_version<"3.11"
   - google-auth>=1.0.0
   - google-auth-httplib2>=0.0.1
-  - google-cloud-aiplatform>=1.7.1,<2.0.0
+  - google-cloud-aiplatform>=1.7.1,<2.0.0;python_version<"3.11"
   - google-cloud-automl>=2.1.0
   - google-cloud-bigquery-datatransfer>=3.0.0
   - google-cloud-bigtable>=2.0.0,<3.0.0
@@ -104,15 +104,15 @@ dependencies:
   - google-cloud-orchestration-airflow>=1.0.0,<2.0.0
   - google-cloud-pubsub>=2.0.0
   - google-cloud-redis>=2.0.0
-  - google-cloud-secret-manager>=0.2.0,<2.0.0
-  - google-cloud-spanner>=1.10.0,<2.0.0
-  - google-cloud-speech>=0.36.3,<2.0.0
+  - google-cloud-secret-manager>=0.2.0,<2.0.0;python_version<"3.11"
+  - google-cloud-spanner>=1.10.0,<2.0.0;python_version<"3.11"
+  - google-cloud-speech>=0.36.3,<2.0.0;python_version<"3.11"
   - google-cloud-storage>=1.30,<3.0.0
   - google-cloud-tasks>=2.0.0
-  - google-cloud-texttospeech>=0.4.0,<2.0.0
-  - google-cloud-translate>=1.5.0,<2.0.0
-  - google-cloud-videointelligence>=1.7.0,<2.0.0
-  - google-cloud-vision>=0.35.2,<2.0.0
+  - google-cloud-texttospeech>=0.4.0,<2.0.0;python_version<"3.11"
+  - google-cloud-translate>=1.5.0,<2.0.0;python_version<"3.11"
+  - google-cloud-videointelligence>=1.7.0,<2.0.0;python_version<"3.11"
+  - google-cloud-vision>=0.35.2,<2.0.0;python_version<"3.11"
   - google-cloud-workflows>=0.1.0,<2.0.0
   - grpcio-gcp>=0.2.2
   - httpx
@@ -120,10 +120,22 @@ dependencies:
   - looker-sdk>=22.2.0
   - pandas-gbq
   - pandas>=0.17.1
+  # We are limiting pyarrow to versions that are also supported by apache-beam provider
+  # This aids pypi resolver to focus on small number of pyarrow versions
+  - pyarrow>=9.0.0;python_version<"3.11"
+  # Pyarrow needs version 11.0.0+ for Python 3.11 - for now google provider is disabled for 3.11
+  # altogether, but this limit will have to be bumped anyway when they add support for 3.11
+  - pyarrow>=11.0.0;python_version>="3.11"
   - sqlalchemy-bigquery>=1.2.1
   # A transient dependency of google-cloud-bigquery-datatransfer, but we
   # further constrain it since older versions are buggy.
   - proto-plus>=1.19.6
+# Excluded because bigquery and a number of dependent libraries are not compatible with 3.11 yet
+# See https://pyreadiness.org/3.11/. Also some of Google libraries are in pretty ancient
+# version (pre 2.0.0) and they MUST be migrated in order to add 3.11 support
+# This is tracked in https://github.com/apache/airflow/issues/27292
+excluded-python-versions:
+  - "3.11"
 
 integrations:
   - integration-name: Google Analytics360

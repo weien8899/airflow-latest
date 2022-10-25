@@ -18,6 +18,14 @@
 """This module contains a Google Cloud Spanner Hook."""
 from __future__ import annotations
 
+import sys
+
+from airflow.exceptions import AirflowOptionalProviderFeatureException
+
+if sys.version_info >= (3, 11):
+    raise AirflowOptionalProviderFeatureException("The spanner module is not available for Python 3.11+")
+
+
 import warnings
 from typing import Callable, Sequence
 

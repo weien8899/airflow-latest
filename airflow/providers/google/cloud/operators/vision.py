@@ -18,6 +18,14 @@
 """This module contains a Google Cloud Vision operator."""
 from __future__ import annotations
 
+import sys
+
+from airflow.exceptions import AirflowOptionalProviderFeatureException
+
+if sys.version_info >= (3, 11):
+    raise AirflowOptionalProviderFeatureException("The vision module is not available for Python 3.11+")
+
+
 from copy import deepcopy
 from typing import TYPE_CHECKING, Any, Sequence, Tuple
 

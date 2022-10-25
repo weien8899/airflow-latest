@@ -17,7 +17,11 @@
 # under the License.
 from __future__ import annotations
 
+import sys
+
 import pytest
+
+pytestmark = pytest.mark.skipif(sys.version_info >= (3, 11), reason="Skipped on python3.11 or higher")
 
 from tests.providers.google.cloud.utils.gcp_authenticator import GCP_VERTEX_AI_KEY
 from tests.test_utils.gcp_system_helpers import CLOUD_DAG_FOLDER, GoogleSystemTest, provide_gcp_context

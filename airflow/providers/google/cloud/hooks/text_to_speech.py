@@ -18,6 +18,16 @@
 """This module contains a Google Cloud Text to Speech Hook."""
 from __future__ import annotations
 
+import sys
+
+from airflow.exceptions import AirflowOptionalProviderFeatureException
+
+if sys.version_info >= (3, 11):
+    raise AirflowOptionalProviderFeatureException(
+        "The text_to_speech module is not available for Python 3.11+"
+    )
+
+
 import warnings
 from typing import Sequence
 

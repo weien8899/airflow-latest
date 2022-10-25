@@ -16,12 +16,17 @@
 # under the License.
 from __future__ import annotations
 
+import sys
+
+import pytest
+
+pytestmark = pytest.mark.skipif(sys.version_info >= (3, 11), reason="Skipped on python3.11 or higher")
+
+
 import random
 import string
 import subprocess
 from unittest import mock
-
-import pytest
 
 from tests.providers.google.cloud.utils.gcp_authenticator import GCP_SECRET_MANAGER_KEY
 from tests.test_utils.gcp_system_helpers import GoogleSystemTest, provide_gcp_context

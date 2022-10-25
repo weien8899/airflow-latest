@@ -16,6 +16,14 @@
 # under the License.
 from __future__ import annotations
 
+import sys
+
+from airflow.exceptions import AirflowOptionalProviderFeatureException
+
+if sys.version_info >= (3, 11):
+    raise AirflowOptionalProviderFeatureException("The vertex_ai module is not available for Python 3.11+")
+
+
 from typing import TYPE_CHECKING
 
 from airflow.providers.google.cloud.links.base import BaseGoogleLink

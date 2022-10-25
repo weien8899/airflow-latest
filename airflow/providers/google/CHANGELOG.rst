@@ -23,6 +23,26 @@
 Changelog
 ---------
 
+9.0.0
+.....
+
+This is the first release of the provider that supports Python 3.11. However the 3.11 version does not
+support all the integrations that are available in previous versions. This is because those integrations require
+dependencies that are not compatible with Python 3.11. Attempting to use those services will result in
+``AirflowOptionalProviderFeatureException`` explaining the problem.
+
+The list of packages that are not available in Python 3.11 (and corresponding integrations won't work) are:
+
+* google-cloud-aiplatform (Vertex AI integration)
+* google-cloud-secret-manager (SecretsManager integration)
+* google-cloud-spanner (Spanner integration)
+* google-cloud-speech (SpeechToText integration)
+* google-cloud-texttospeech (TextToSpeech integration)
+* google-cloud-translate (GoogleTranslate integration)
+* google-cloud-videointelligence (VideoIntelligence integration)
+* google-cloud-vision (CloudVision integration)
+
+
 8.11.0
 ......
 

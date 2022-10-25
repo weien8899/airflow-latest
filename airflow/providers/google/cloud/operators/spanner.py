@@ -18,6 +18,13 @@
 """This module contains Google Spanner operators."""
 from __future__ import annotations
 
+import sys
+
+from airflow.exceptions import AirflowOptionalProviderFeatureException
+
+if sys.version_info >= (3, 11):
+    raise AirflowOptionalProviderFeatureException("The spanner module is not available for Python 3.11+")
+
 from typing import TYPE_CHECKING, Sequence
 
 from airflow.exceptions import AirflowException

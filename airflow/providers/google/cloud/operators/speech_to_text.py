@@ -18,6 +18,7 @@
 """This module contains a Google Speech to Text operator."""
 from __future__ import annotations
 
+import sys
 from typing import TYPE_CHECKING, Sequence
 
 from google.api_core.gapic_v1.method import DEFAULT, _MethodDefault
@@ -25,10 +26,15 @@ from google.api_core.retry import Retry
 from google.cloud.speech_v1.types import RecognitionConfig
 from google.protobuf.json_format import MessageToDict
 
-from airflow.exceptions import AirflowException
+from airflow.exceptions import AirflowException, AirflowOptionalProviderFeatureException
 from airflow.providers.google.cloud.hooks.speech_to_text import CloudSpeechToTextHook, RecognitionAudio
 from airflow.providers.google.cloud.operators.cloud_base import GoogleCloudBaseOperator
 from airflow.providers.google.common.links.storage import FileDetailsLink
+
+if sys.version_info >= (3, 11):
+    raise AirflowOptionalProviderFeatureException(
+        "The speech_to_text module is not available for Python 3.11+"
+    )
 
 if TYPE_CHECKING:
     from airflow.utils.context import Context

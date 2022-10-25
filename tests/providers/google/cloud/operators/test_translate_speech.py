@@ -17,9 +17,14 @@
 # under the License.
 from __future__ import annotations
 
-from unittest import mock
+import sys
 
 import pytest
+
+pytestmark = pytest.mark.skipif(sys.version_info >= (3, 11), reason="Skipped on python3.11 or higher")
+
+from unittest import mock
+
 from google.cloud.speech_v1.proto.cloud_speech_pb2 import (
     RecognizeResponse,
     SpeechRecognitionAlternative,

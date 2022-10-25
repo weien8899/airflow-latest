@@ -41,6 +41,17 @@ versions:
 dependencies:
   - apache-airflow>=2.3.0
   - apache-beam>=2.33.0
+  # We are limiting pyarrow to versions that are also supported by apache-beam provider
+  # This aids pypi resolver to focus on small number of pyarrow versions
+  - pyarrow>=9.0.0;python_version<"3.11"
+  # Pyarrow needs version 11.0.0+ for Python 3.11 - for now beam provider is disabled for 3.11
+  # altogether, but this limit will have to be bumped anyway when they add support for 3.11
+  - pyarrow>=11.0.0;python_version>="3.11"
+
+# Excluded because apache-beam and a number of dependent libraries are not
+# compatible with 3.11 yet. See https://github.com/apache/beam/issues/23848
+excluded-python-versions:
+  - "3.11"
 
 integrations:
   - integration-name: Apache Beam
